@@ -11,61 +11,62 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import ThemeToggle from './ThemeToggle';
+import ThemeToggle from '../ThemeToggle';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export const menuItem = [
   {
     id: 1,
     title: 'HOME',
-    link: 'home',
+    link: '/',
   },
   {
     id: 2,
     title: 'ABOUT',
-    link: 'about',
+    link: '/about',
   },
   {
     id: 3,
     title: 'WORK',
-    link: 'work',
+    link: '/work',
   },
   {
     id: 4,
     title: 'CONTACT',
-    link: 'contact',
+    link: '/contact',
   },
 ];
 
 const Navbar = () => {
   const router = useRouter();
-  const [currentSection, setCurrentSection] = useState(1);
+  // const [currentSection, setCurrentSection] = useState(1);
 
-  const scrollTo = (section: string, id: number) => {
-    setCurrentSection(id);
-    document.getElementById(section) && document.getElementById(section)!.scrollIntoView({ behavior: 'smooth' });
-  };
+  // const scrollTo = (section: string, id: number) => {
+  //   setCurrentSection(id);
+  //   document.getElementById(section) && document.getElementById(section)!.scrollIntoView({ behavior: 'smooth' });
+  // };
 
-  useEffect(() => {
-    const handleUserScroll = (event: WheelEvent) => {
-      const wheelDirection = event.deltaY / 100;
-      if (wheelDirection > 0) {
-        currentSection != menuItem.length ? setCurrentSection((prev) => prev + 1) : setCurrentSection(menuItem.length);
-      } else {
-        currentSection != 1 ? setCurrentSection((prev) => prev - 1) : setCurrentSection(1);
-      }
-    };
+  // useEffect(() => {
+  //   const handleUserScroll = (event: WheelEvent) => {
+  //     const wheelDirection = event.deltaY / 100;
+  //     if (wheelDirection > 0) {
+  //       currentSection != menuItem.length ? setCurrentSection((prev) => prev + 1) : setCurrentSection(menuItem.length);
+  //     } else {
+  //       currentSection != 1 ? setCurrentSection((prev) => prev - 1) : setCurrentSection(1);
+  //     }
+  //   };
 
-    document.addEventListener('wheel', handleUserScroll);
+  //   document.addEventListener('wheel', handleUserScroll);
 
-    return () => {
-      document.removeEventListener('wheel', handleUserScroll);
-    };
-  });
+  //   return () => {
+  //     document.removeEventListener('wheel', handleUserScroll);
+  //   };
+  // });
 
   return (
     <>
       {/* Top Navbar */}
-      <nav className='hidden lg:block h-[10vh] pt-5'>
+      <nav className='hidden lg:block lg:absolute h-[10vh] pt-5'>
         <NavigationMenu>
           <NavigationMenuList>
             <Avatar>
@@ -74,7 +75,7 @@ const Navbar = () => {
             </Avatar>
             {menuItem.map((el) => (
               <NavigationMenuItem key={el.id} className='cursor-pointer'>
-                <NavigationMenuLink onClick={() => scrollTo(el.title.toLowerCase(), el.id)} className={navigationMenuTriggerStyle()}>
+                <NavigationMenuLink href={el.link} className={navigationMenuTriggerStyle()}>
                   {el.title}
                 </NavigationMenuLink>
               </NavigationMenuItem>
@@ -82,12 +83,12 @@ const Navbar = () => {
           </NavigationMenuList>
         </NavigationMenu>
       </nav>
-      <div className='absolute right-[100px] top-5'>
+      <div className='absolute right-[40px] top-5'>
         <ThemeToggle />
       </div>
 
       {/* Mobile Navbar */}
-      <Sheet>
+      {/* <Sheet>
         <SheetTrigger asChild>
           <Button variant='ghost' className='absolute top-2 right-5 lg:hidden'>
             <GiHamburgerMenu size={20} />
@@ -109,10 +110,10 @@ const Navbar = () => {
             ))}
           </div>
         </SheetContent>
-      </Sheet>
+      </Sheet> */}
 
       {/* Floating Navbar */}
-      <nav className='hidden lg:block fixed right-[100px] top-[40%]'>
+      {/* <nav className='hidden lg:block fixed right-[100px] top-[40%]'>
         <NavigationMenu>
           <div className='flex flex-col justify-center items-center gap-2'>
             {menuItem.map((el) => (
@@ -122,7 +123,7 @@ const Navbar = () => {
             ))}
           </div>
         </NavigationMenu>
-      </nav>
+      </nav> */}
     </>
   );
 };

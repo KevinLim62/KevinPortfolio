@@ -12,7 +12,7 @@ interface SingleProjectDialogProps {
 
 const SingleProjectDialog: React.FC<SingleProjectDialogProps> = ({ id, title, description, link }) => {
   return (
-    <DialogContent className='bg-foreground text-background h-[60vh]'>
+    <DialogContent className='bg-foreground text-background h-[70vh]'>
       <DialogHeader className='h-[50vh]'>
         <DialogTitle className='text-2xl font-semibold leading-none tracking-tight'>{title}</DialogTitle>
         <DialogDescription className='text-sm text-muted-foreground pt-[25px] lg:pt-[50px]'>{description}</DialogDescription>

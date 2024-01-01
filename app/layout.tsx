@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from './components/Theme-provider';
+import Navbar from './components/Navigation/Navbar';
+import AnimationWrapper from './components/Animation-wrapper';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -15,7 +17,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang='en'>
       <body className={inter.className}>
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
-          {children}
+          <AnimationWrapper>
+            <main className='w-full h-screen bg-background'>
+              <div className='section-container'>
+                {/* <div className='h-screen lg:snap-y lg:snap-mandatory lg:overflow-auto scrollbar-hide'> */}
+                {/* </div> */}
+                <Navbar />
+                {children}
+              </div>
+            </main>
+          </AnimationWrapper>
         </ThemeProvider>
       </body>
     </html>

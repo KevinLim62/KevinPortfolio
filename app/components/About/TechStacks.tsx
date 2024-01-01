@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
+import { motion } from 'framer-motion';
 
 const techStacks = [
   {
@@ -69,9 +70,9 @@ const TechStacks = () => {
   });
 
   return (
-    <div className='grid grid-cols-4 grid-rows-3 w-[350px] h-[350px] lg:w-[450px] lg:h-[450px] relative'>
+    <motion.div className='grid grid-cols-4 grid-rows-3 w-[350px] h-[350px] 2xl:w-[450px] 2xl:h-[450px] relative' initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.8, duration: 0.5 }}>
       <div className='col-span-2 border-[1px]'>
-        <div className='flex flex-col h-full justify-center mx-4 lg:mx-10'>
+        <div className='flex flex-col h-full justify-center mx-4 2xl:mx-10'>
           <div>My</div>
           <div>Tech Stacks</div>
           <div className={`flex items-center w-[50px] h-[50px] mt-2 gap-2 transition-all duration-200 ${selectedStack.icon && 'animate-[fadeInBottom_0.3s_ease-in-out]'}`}>
@@ -99,7 +100,7 @@ const TechStacks = () => {
               src={el.icon}
             />
           </HoverCardTrigger>
-          <HoverCardContent className='bg-foreground text-background border-transparent'>{el.hoverContent}</HoverCardContent>
+          {/* <HoverCardContent className='bg-foreground text-background border-transparent'>{el.hoverContent}</HoverCardContent> */}
         </HoverCard>
       ))}
       <div className='absolute -left-[12.5px] -top-[12.5px]'>
@@ -108,7 +109,7 @@ const TechStacks = () => {
       <div className='absolute -right-[12.5px] -bottom-[12.5px]'>
         <AiOutlinePlus size={25} />
       </div>
-    </div>
+    </motion.div>
   );
 };
 

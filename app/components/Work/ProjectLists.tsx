@@ -6,6 +6,31 @@ import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, Di
 import { useCallback, useState } from 'react';
 import SingleProjectDialog from './SingleProjectDialog';
 import { Button } from '@/components/ui/button';
+import { motion } from 'framer-motion';
+
+const variants = {
+  hidden: {
+    opacity: 0,
+    x: 10,
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { staggerChildren: 0.3 },
+  },
+};
+
+const children = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 1,
+    },
+  },
+};
 
 const listItems = [
   {
@@ -79,11 +104,11 @@ const ProjectLists = () => {
           <IoIosArrowForward size={30} onClick={handleForward} className='text-[#D9D9D9] hover:text-white hover:scale-150 transition-all duration-75' />
         </div>
       </div>
-      <div className='flex mt-[50px] lg:mt-0 w-[360px] h-[400px] overflow-hidden lg:grid lg:grid-cols-3 lg:grid-rows-6 lg:w-[1120px] lg:h-[650px] lg:gap-[20px]'>
+      <motion.div variants={variants} initial='hidden' animate='visible' className='flex mt-[50px] w-[360px] h-[400px] overflow-hidden lg:grid lg:grid-cols-3 lg:grid-rows-6 lg:w-[800px] lg:h-[450px] 2xl:w-[1120px] 2xl:h-[650px] lg:gap-[20px]'>
         {listItems.map((el, index) => (
-          <div key={el.id} className={`flex w-full h-full ${el.layout} transition-transform duration-200 -translate-x-[${carouselState * 100}%]`}>
+          <motion.div variants={children} key={el.id} className={`flex w-full h-full ${el.layout} transition-transform duration-200 -translate-x-[${carouselState * 100}%]`}>
             <Card className='flex flex-col justify-end bg-white text-black w-[360px] cursor-pointer group' onClick={() => handleDialog(el.id)}>
-              <div className=' transition-transform duration-200 lg:group-hover:-translate-y-14'>
+              <div className=' transition-transform duration-200 lg:group-hover:-translate-y-9 2xl:group-hover:-translate-y-14'>
                 <CardHeader></CardHeader>
                 <CardContent></CardContent>
                 <CardFooter className='flex flex-col items-start space-y-1'>
@@ -96,9 +121,9 @@ const ProjectLists = () => {
               <DialogTrigger id={`dialogTrigger${el.id}`}></DialogTrigger>
               <SingleProjectDialog id={el.id} title={el.title} description={el.description} link={el.link} />
             </Dialog>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </>
   );
 };

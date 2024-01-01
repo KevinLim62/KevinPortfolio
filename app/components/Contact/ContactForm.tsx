@@ -9,12 +9,17 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { IoMdSend } from 'react-icons/io';
+import { motion } from 'framer-motion';
 
 const inquiryFormSchema = z.object({
-  name: z.string({
-    required_error: 'Name must be provided.',
-    invalid_type_error: 'Name must be a string.',
-  }),
+  name: z
+    .string({
+      required_error: 'Name must be provided.',
+      invalid_type_error: 'Name must be a string.',
+    })
+    .min(10, {
+      message: 'Message must not less than 10 characters.',
+    }),
   email: z
     .string({
       required_error: 'Email must be provided.',
@@ -24,7 +29,10 @@ const inquiryFormSchema = z.object({
     .string({
       required_error: 'Message must be provided.',
     })
-    .max(160, {
+    .min(10, {
+      message: 'Message must not less than 10 characters.',
+    })
+    .max(30, {
       message: 'Message must not be longer than 30 characters.',
     }),
 });
@@ -48,8 +56,9 @@ const ContactForm = () => {
   }
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='pt-[20px] lg:pt-[40px] space-y-8'>
-        <div className='flex flex-col md:flex-row gap-[15px] lg:gap-[30px]'>
+      <motion.form onSubmit={form.handleSubmit(onSubmit)} className='pt-[20px] 2xl:pt-[40px] space-y-8 relative' initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+        <h3 className='text-xl font-semibold leading-none tracking-tight mt-5'>Send me a message!</h3>
+        <div className='flex flex-col md:flex-row gap-[30px]'>
           <FormField
             control={form.control}
             name='name'
@@ -59,7 +68,7 @@ const ContactForm = () => {
                 <FormControl>
                   <Input placeholder='Enter Your Name' className='border-transparent' {...field} />
                 </FormControl>
-                <FormMessage className='absolute' />
+                <FormMessage className='absolute text-xs whitespace-nowrap' />
               </FormItem>
             )}
           />
@@ -73,7 +82,7 @@ const ContactForm = () => {
                   <FormControl>
                     <Input placeholder='Enter Your Email' className='border-transparent' {...field} />
                   </FormControl>
-                  <FormMessage className='absolute' />
+                  <FormMessage className='absolute text-xs whitespace-nowrap' />
                 </FormItem>
               </>
             )}
@@ -83,12 +92,12 @@ const ContactForm = () => {
           control={form.control}
           name='message'
           render={({ field }) => (
-            <FormItem className='w-[300px] lg:w-[550px] pt-[15px] lg:pt-[30px] border-b-2 border-white'>
+            <FormItem className='w-[550px] pt-[15px] lg:pt-[30px] border-b-2 border-white '>
               <FormLabel>Message</FormLabel>
               <FormControl>
                 <Textarea placeholder='Enter Your Inquiry Message' className='border-transparent resize-none' {...field} />
               </FormControl>
-              <FormMessage className='absolute' />
+              <FormMessage className='absolute text-xs whitespace-nowrap' />
             </FormItem>
           )}
         />
@@ -96,7 +105,7 @@ const ContactForm = () => {
           SEND
           <IoMdSend size={20} className='transition-transform duration-200 group-hover:translate-x-3' />
         </Button>
-      </form>
+      </motion.form>
     </Form>
   );
 };

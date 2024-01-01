@@ -1,13 +1,12 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
-import TechStacks from './TechStacks';
+import { motion } from 'framer-motion';
 
 const About = () => {
   return (
-    <section id='about' className='flex flex-col lg:flex-row mt-[100px] lg:mt-0 items-center justify-center h-screen lg:gap-[135px] snap-start'>
-      <Card className='w-[400px] lg:w-[450px] border-transparent'>
+    <motion.div className='w-[400px] 2xl:w-[450px]' initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
+      <Card className=' border-transparent'>
         <CardHeader>
           <CardTitle>About Me</CardTitle>
         </CardHeader>
@@ -17,8 +16,7 @@ const About = () => {
           <CardDescription>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dolor magna eget est lorem ipsum dolor sit amet.</CardDescription>
         </CardContent>
       </Card>
-      <TechStacks />
-    </section>
+    </motion.div>
   );
 };
 

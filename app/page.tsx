@@ -1,22 +1,17 @@
-import Navbar from './components/Navbar';
-import Hero from './components/Hero/Hero';
-import About from './components/About/About';
-import Work from './components/Work/Work';
-import Contact from './components/Contact/Contact';
-import Footer from './components/Footer';
+import { Button } from '@/components/ui/button';
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import Intro from './components/Hero/Intro';
+import ProfilePic from './components/Hero/ProfilePic';
 
 export default function Home() {
   return (
-    <main className='w-full h-screen bg-background'>
-      <div className='section-container'>
-        <div className='h-screen lg:snap-y lg:snap-mandatory lg:overflow-auto scrollbar-hide'>
-          <Hero />
-          <About />
-          <Work />
-          <Contact />
-          <Footer />
-        </div>
+    <section id='hero'>
+      <div className='flex flex-col h-screen lg:flex-row items-center justify-center lg:gap-[67px] 2xl:gap-[135px] mt-[50px] lg:mt-0'>
+        <Intro />
+        <ProfilePic />
       </div>
-    </main>
+    </section>
   );
 }
