@@ -1,7 +1,3 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
 import Intro from './components/Hero/Intro';
 import ProfilePic from './components/Hero/ProfilePic';
 

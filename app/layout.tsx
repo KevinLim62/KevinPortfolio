@@ -16,18 +16,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
-          <AnimationWrapper>
-            <main className='w-full h-screen bg-background'>
-              <div className='section-container'>
-                {/* <div className='h-screen lg:snap-y lg:snap-mandatory lg:overflow-auto scrollbar-hide'> */}
-                {/* </div> */}
+        <main className='w-full h-screen bg-background'>
+          <div className='section-container'>
+            <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
+              <AnimationWrapper>
                 <Navbar />
                 {children}
-              </div>
-            </main>
-          </AnimationWrapper>
-        </ThemeProvider>
+              </AnimationWrapper>
+            </ThemeProvider>
+          </div>
+        </main>
       </body>
     </html>
   );
