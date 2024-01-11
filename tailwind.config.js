@@ -13,6 +13,7 @@ module.exports = {
     extend: {
       colors: {
         border: 'hsl(var(--border))',
+        button: 'hsl(var(--button))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
         background: 'hsl(var(--background))',

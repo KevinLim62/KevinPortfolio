@@ -2,21 +2,24 @@
 
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from '@/components/ui/card';
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { useCallback, useState } from 'react';
+import { Dialog, DialogTrigger } from '@/components/ui/dialog';
+import { useEffect, useRef, useState } from 'react';
 import SingleProjectDialog from './SingleProjectDialog';
-import { Button } from '@/components/ui/button';
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
+import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from '@/components/ui/carousel';
+import Link from 'next/link';
 
 const variants = {
   hidden: {
     opacity: 0,
-    x: 10,
   },
   visible: {
     opacity: 1,
-    x: 0,
-    transition: { staggerChildren: 0.3 },
+    transition: {
+      delay: 0.5,
+      delayChildren: 0.5,
+      staggerChildren: 0.3,
+    },
   },
 };
 
@@ -26,9 +29,7 @@ const children = {
   },
   visible: {
     opacity: 1,
-    transition: {
-      duration: 1,
-    },
+    transition: { duration: 0.5, ease: [0.65, 0, 0.35, 1] },
   },
 };
 
@@ -72,6 +73,21 @@ const listItems = [
 
 const ProjectLists = () => {
   const [carouselState, setCarouselState] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  });
 
   const handleForward = () => {
     if (carouselState === listItems.length - 1) {
@@ -89,6 +105,11 @@ const ProjectLists = () => {
     }
   };
 
+  const ref = useRef(null);
+  const isInView = useInView(ref, {
+    once: true,
+  });
+
   const handleDialog = (id: string) => {
     if (window.innerWidth >= 1024) {
       const triggerElement = document.getElementById(`dialogTrigger${id}`);
@@ -98,32 +119,71 @@ const ProjectLists = () => {
 
   return (
     <>
-      <div className='absolute z-10 inset-x-0 inset-y-[50%] lg:hidden'>
-        <div className='flex w-full justify-between'>
-          <IoIosArrowBack size={30} onClick={handleBackward} className='text-[#D9D9D9] hover:text-white hover:scale-150 transition-all duration-75' />
-          <IoIosArrowForward size={30} onClick={handleForward} className='text-[#D9D9D9] hover:text-white hover:scale-150 transition-all duration-75' />
-        </div>
-      </div>
-      <motion.div variants={variants} initial='hidden' animate='visible' className='flex mt-[50px] w-[360px] h-[400px] overflow-hidden lg:grid lg:grid-cols-3 lg:grid-rows-6 lg:w-[800px] lg:h-[450px] 2xl:w-[1120px] 2xl:h-[650px] lg:gap-[20px]'>
-        {listItems.map((el, index) => (
-          <motion.div variants={children} key={el.id} className={`flex w-full h-full ${el.layout} transition-transform duration-200 -translate-x-[${carouselState * 100}%]`}>
-            <Card className='flex flex-col justify-end bg-white text-black w-[360px] cursor-pointer group' onClick={() => handleDialog(el.id)}>
-              <div className=' transition-transform duration-200 lg:group-hover:-translate-y-9 2xl:group-hover:-translate-y-14'>
-                <CardHeader></CardHeader>
-                <CardContent></CardContent>
-                <CardFooter className='flex flex-col items-start space-y-1'>
-                  <CardTitle>{el.title}</CardTitle>
-                  <CardDescription className='h-10 text-ellipsis overflow-hidden'>{el.description}</CardDescription>
-                </CardFooter>
-              </div>
-            </Card>
-            <Dialog>
-              <DialogTrigger id={`dialogTrigger${el.id}`}></DialogTrigger>
-              <SingleProjectDialog id={el.id} title={el.title} description={el.description} link={el.link} />
-            </Dialog>
+      {windowWidth >= 1024 ? (
+        <>
+          <div className='absolute z-10 inset-x-0 inset-y-[45%] lg:hidden'>
+            <div className='flex w-full justify-between'>
+              <IoIosArrowBack size={30} onClick={handleBackward} className='text-foreground hover:text-foreground/70 hover:scale-150 transition-all duration-75' />
+              <IoIosArrowForward size={30} onClick={handleForward} className='text-foreground hover:text-foreground/70 hover:scale-150 transition-all duration-75' />
+            </div>
+          </div>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ delay: 0.5, duration: 1, ease: [0.6, 0.01, 0.05, 0.95] }}
+            className='absolute inset-x-0 text-center top-[150px] md:top-[100px] lg:top-[40px] 2xl:top-[100px] text-button text-2xl 2xl:text-4xl font-bold'
+          >
+            My Work
+          </motion.h1>
+          <motion.div ref={ref} variants={variants} initial='hidden' animate={isInView ? 'visible' : 'hidden'} className='mt-[50px] grid grid-cols-3 grid-rows-6 lg:w-[830px] lg:h-[480px] 2xl:w-[1120px] 2xl:h-[650px] lg:gap-[20px]'>
+            {listItems.map((el, index) => (
+              <motion.div variants={children} key={el.id} className={`flex w-full h-full py-1 ${el.layout} transition-transform duration-200 -translate-x-[${carouselState * 100}%]`}>
+                <Card className='flex flex-col justify-end w-[360px] cursor-pointer group drop-shadow-lg' onClick={() => handleDialog(el.id)}>
+                  <div className=' transition-transform duration-200 lg:group-hover:-translate-y-7 2xl:group-hover:-translate-y-14'>
+                    <CardHeader></CardHeader>
+                    <CardContent></CardContent>
+                    <CardFooter className='flex flex-col items-start space-y-1'>
+                      <CardTitle className='text-xl lg:text-2xl 2xl:text-4xl font-bold'>{el.title}</CardTitle>
+                      <CardDescription className='h-12 text-sm lg:text-base 2xl:text-md font-light text-ellipsis overflow-hidden'>{el.description}</CardDescription>
+                    </CardFooter>
+                  </div>
+                </Card>
+                <Dialog>
+                  <DialogTrigger id={`dialogTrigger${el.id}`}></DialogTrigger>
+                  <SingleProjectDialog id={el.id} title={el.title} description={el.description} link={el.link} />
+                </Dialog>
+              </motion.div>
+            ))}
           </motion.div>
-        ))}
-      </motion.div>
+        </>
+      ) : (
+        <>
+          <h1 className='text-center text-white text-2xl 2xl:text-4xl font-bold'>My Work</h1>
+          <Carousel className='w-[290px] sm:w-[500]'>
+            <CarouselContent className=''>
+              {listItems.map((el, index) => (
+                <CarouselItem key={index} className=''>
+                  <Card className='w-full h-[500px] cursor-pointer group drop-shadow-lg'>
+                    <CardHeader>
+                      <CardTitle className='text-xl lg:text-2xl 2xl:text-4xl font-bold'>{el.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <CardDescription className='text-sm lg:text-base 2xl:text-md font-light'>{el.description}</CardDescription>
+                    </CardContent>
+                    <CardFooter className='flex flex-col items-start space-y-1'>
+                      <Link href={el.link} className='text-sm lg:text-md 2xl:text-lg font-light'>
+                        Live Url
+                      </Link>
+                    </CardFooter>
+                  </Card>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
+        </>
+      )}
     </>
   );
 };

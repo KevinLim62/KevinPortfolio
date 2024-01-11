@@ -12,12 +12,14 @@ interface SingleProjectDialogProps {
 
 const SingleProjectDialog: React.FC<SingleProjectDialogProps> = ({ id, title, description, link }) => {
   return (
-    <DialogContent className='bg-foreground text-background h-[70vh]'>
+    <DialogContent className='bg-primary text-foreground h-[70vh] shadow-xl'>
       <DialogHeader className='h-[50vh]'>
-        <DialogTitle className='text-2xl font-semibold leading-none tracking-tight'>{title}</DialogTitle>
-        <DialogDescription className='text-sm text-muted-foreground pt-[25px] lg:pt-[50px]'>{description}</DialogDescription>
+        <DialogTitle className='text-md lg:text-xl 2xl:text-3xl font-bold leading-none tracking-tight'>{title}</DialogTitle>
+        <DialogDescription className='text-sm lg:text-md 2xl:text-lg text-foreground font-bold pt-[25px] lg:pt-[50px]'>{description}</DialogDescription>
       </DialogHeader>
-      <Link href={link}>Live Url</Link>
+      <Link href={link} className='text-sm lg:text-md 2xl:text-lg font-light'>
+        Live Url
+      </Link>
     </DialogContent>
   );
 };

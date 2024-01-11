@@ -1,10 +1,10 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion, useInView } from 'framer-motion';
 
 const techStacks = [
   {
@@ -63,33 +63,76 @@ const techStacks = [
   },
 ];
 
+const variants = {
+  initial: {
+    opacity: 0,
+    y: 100,
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+  },
+};
+
 const TechStacks = () => {
   const [selectedStack, setSelectedStack] = useState({
     icon: '',
     title: '',
   });
 
+  const ref = useRef(null);
+  const isInView = useInView(ref, {
+    once: true,
+  });
+
+  const selectedStackVariants = {
+    initial: {
+      opacity: 0,
+      y: 10,
+    },
+    animate: {
+      opacity: 1,
+      y: 0,
+    },
+    exit: {
+      opacity: 0,
+      y: 10,
+    },
+  };
+
   return (
-    <motion.div className='grid grid-cols-4 grid-rows-3 w-[350px] h-[350px] 2xl:w-[450px] 2xl:h-[450px] relative' initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.8, duration: 0.5 }}>
-      <div className='col-span-2 border-[1px]'>
-        <div className='flex flex-col h-full justify-center mx-4 2xl:mx-10'>
+    <motion.div
+      className='grid grid-cols-4 grid-rows-3 w-[300px] md:w-[400px] md:h-[400px] lg:w-[450px] lg:h-[450px] border-[1px] border-primary relative'
+      ref={ref}
+      variants={variants}
+      initial={false}
+      animate={isInView ? 'animate' : 'initial'}
+      transition={{ duration: 1.5, ease: [0.65, 0, 0.35, 1] }}
+    >
+      <div className='col-span-2 border-[1px] border-primary relative'>
+        <div className='flex flex-col h-full justify-center mx-4 2xl:mx-10 text-sm lg:text-md 2xl:text-lg font-bold'>
           <div>My</div>
           <div>Tech Stacks</div>
-          <div className={`flex items-center w-[50px] h-[50px] mt-2 gap-2 transition-all duration-200 ${selectedStack.icon && 'animate-[fadeInBottom_0.3s_ease-in-out]'}`}>
-            {selectedStack.icon ? <Image alt='selectedStack' width={50} height={50} sizes='100vw' className='grayscale invert' src={selectedStack.icon} /> : <div className='w-full mt-auto border-b-2 border-white'></div>}
-            {selectedStack.title}
-          </div>
+          <AnimatePresence mode='wait'>
+            {selectedStack.icon && (
+              <motion.div className='absolute flex items-center w-[50px] h-[50px] mt-[50px] gap-2' variants={selectedStackVariants} initial='initial' animate='animate' exit='exit'>
+                <Image alt='selectedStack' width={50} height={50} sizes='100vw' className='grayscale dark:invert' src={selectedStack.icon} />
+                {selectedStack.title}
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <div className='invisible w-[100px] h-[60px] border-b-2 '></div>
         </div>
       </div>
       {techStacks.map((el, index) => (
         <HoverCard key={el.id}>
-          <HoverCardTrigger className='flex items-center border-[1px]'>
+          <HoverCardTrigger className='flex items-center border-[1px] border-primary bg-background'>
             <Image
               alt={el.title}
               width={50}
               height={50}
               sizes='100vw'
-              className='mx-auto grayscale invert cursor-pointer'
+              className='mx-auto grayscale dark:invert cursor-pointer'
               onMouseOut={() =>
                 setSelectedStack({
                   icon: '',
@@ -103,11 +146,11 @@ const TechStacks = () => {
           {/* <HoverCardContent className='bg-foreground text-background border-transparent'>{el.hoverContent}</HoverCardContent> */}
         </HoverCard>
       ))}
-      <div className='absolute -left-[12.5px] -top-[12.5px]'>
-        <AiOutlinePlus size={25} />
+      <div className='absolute -left-[15px] -top-[15px] text-secondary'>
+        <AiOutlinePlus size={30} />
       </div>
-      <div className='absolute -right-[12.5px] -bottom-[12.5px]'>
-        <AiOutlinePlus size={25} />
+      <div className='absolute -right-[15px] -bottom-[15px] text-secondary'>
+        <AiOutlinePlus size={30} />
       </div>
     </motion.div>
   );
