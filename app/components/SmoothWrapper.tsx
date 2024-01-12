@@ -1,30 +1,12 @@
 'use client';
 
-import { NavigationMenu } from '@/components/ui/navigation-menu';
 import { useScrollDirection } from '@/lib/CustomHook';
-import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'framer-motion';
+import { AnimatePresence, motion, useMotionValueEvent, useScroll, useSpring, useTransform } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
-import { menuItem } from './Navigation/Navbar';
-import SectionIcon from '@/components/ui/Animation/SectionIcon';
 import { useMenuStore } from '@/lib/store/menuStore';
-import FloatingNavbar from './Navigation/FloatingNavbar';
-
-const variants = {
-  initial: {
-    opacity: 0,
-    x: 100,
-  },
-  animate: {
-    opacity: 1,
-    x: 0,
-  },
-  exit: {
-    opacity: 0,
-    x: 100,
-  },
-};
 
 const SmoothWrapper = ({ children }: { children: React.ReactNode }) => {
+  const [isLoading, setIsLoading] = useState(true);
   const { menuSection, scrollPosition, setMenuSection, setScrollPosition } = useMenuStore();
   const contentRef = useRef<HTMLDivElement>(null);
   const [contentHeight, setContentHeight] = useState(0);
@@ -79,6 +61,25 @@ const SmoothWrapper = ({ children }: { children: React.ReactNode }) => {
     setScrollPosition(-scrollPosition);
   }, [menuSection]);
 
+  // Intercept normal scroll
+  const { scrollYProgress } = useScroll();
+  const smoothProgress = useSpring(scrollYProgress, {
+    mass: 0.1,
+    stiffness: 100,
+    damping: 20,
+    restDelta: 0.001,
+  });
+
+  useMotionValueEvent(smoothProgress, 'change', (latest) => {
+    if (latest === 0) {
+      setIsLoading(false);
+    }
+  });
+
+  const y = useTransform(smoothProgress, (value) => {
+    return value * -(contentHeight - windowHeight);
+  });
+
   return (
     <>
       {typeof window !== 'undefined' && window.innerWidth >= 1024 ? (
@@ -89,7 +90,12 @@ const SmoothWrapper = ({ children }: { children: React.ReactNode }) => {
           </motion.div>
         </>
       ) : (
-        <>{children}</>
+        <>
+          {/* <div id='smooth-scroll' style={{ height: contentHeight }} />
+          <motion.div className='w-screen fixed top-0 flex flex-col' ref={contentRef} style={{ y: isLoading ? 0 : y }}> */}
+          {children}
+          {/* </motion.div> */}
+        </>
       )}
     </>
   );

@@ -22,7 +22,7 @@ const AboutMe = () => {
   };
 
   return (
-    <motion.div className='overflow-y-scroll rounded-lg h-[350px] md:h-full md:w-[400px] lg:h-fit lg:w-[450px] 2xl:w-[550px]' ref={ref} variants={variants} initial={false} animate={isInView ? 'animate' : 'initial'} transition={{ duration: 1.5, ease: [0.65, 0, 0.35, 1] }}>
+    <motion.div className='overflow-y-scroll rounded-lg w-[300px] md:w-[400px] lg:w-[450px] 2xl:w-[550px]' ref={ref} variants={variants} initial={false} animate={isInView ? 'animate' : 'initial'} transition={{ duration: 1.5, ease: [0.65, 0, 0.35, 1] }}>
       <Card className=''>
         <CardHeader>
           <CardTitle className='text-md lg:text-xl 2xl:text-3xl font-bold'>About Me</CardTitle>

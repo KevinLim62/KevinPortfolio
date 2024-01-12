@@ -69,10 +69,10 @@ const ContactForm = () => {
     },
   };
   return (
-    <div className='flex w-full h-[85vh] 2xl:h-[80vh] items-center justify-center lg:pb-[7%] 2xl:pb-[10%]'>
+    <div className='flex w-full h-full 2xl:h-[80vh] items-center justify-center lg:pb-[7%] 2xl:pb-[10%]'>
       <Form {...form}>
         <motion.form onSubmit={form.handleSubmit(onSubmit)} ref={ref} className='space-y-8' variants={variants} initial={false} animate={isInView ? 'animate' : 'initial'} transition={{ duration: 1.5, ease: [0.65, 0, 0.35, 1] }}>
-          <h1 className='text-md lg:text-xl 2xl:text-3xl font-bold text-center mb-[50px] text-button'>Contact me</h1>
+          <h1 className='text-md lg:text-xl 2xl:text-3xl font-bold text-center md:mb-[50px] text-button'>Contact me</h1>
           {/* <h3 className='text-xl font-semibold leading-none tracking-tight mt-5'>Send me a message!</h3> */}
           <div className='flex flex-col md:flex-row gap-[30px] justify-between'>
             <FormField
@@ -117,7 +117,7 @@ const ContactForm = () => {
               </FormItem>
             )}
           />
-          <div className='flex mx-auto w-[150px] relative group z-10'>
+          <div className='flex lg:mx-auto w-[150px] relative group z-10'>
             <Button className='flex lg:mx-auto bg-secondary text-background border-primary hover:bg-background hover:text-foreground hover:border-foreground w-[150px] h-[50px] rounded-lg gap-1 group text-xs lg:text-sm 2xl:text-base font-bold' variant='outline' type='submit'>
               SEND
               <IoMdSend size={20} className='transition-transform duration-200 group-hover:translate-x-4' />

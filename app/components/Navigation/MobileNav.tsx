@@ -8,6 +8,7 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 import { menuItem } from './Navbar';
 import ThemeToggle from '../ThemeToggle';
 import { motion } from 'framer-motion';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 const variants = {
   initial: {
@@ -30,9 +31,12 @@ const MobileNav = () => {
     <>
       <Sheet>
         <SheetTrigger asChild>
-          <motion.div className='w-full h-full' variants={variants} initial='initial' animate='animate' transition={{ duration: 1, ease: [0.6, 0.01, 0.05, 0.95] }}>
-            <Button variant='ghost' className='z-10 fixed top-5 right-[0px] sm:right-[20px] lg:hidden'>
-              <GiHamburgerMenu size={20} className='w-[15px] h-[15px] sm:w-[20px] sm:h-[20px]' />
+          <motion.div className='z-20 fixed top-0 w-screen h-[5vh] bg-secondary lg:hidden' variants={variants} initial='initial' animate='animate' transition={{ delay: 4, duration: 1, ease: [0.6, 0.01, 0.05, 0.95] }}>
+            <Avatar className='absolute left-3 top-[2px] sm:left-[20px] '>
+              <AvatarFallback className='bg-primary text-foreground text-md font-bold w-[35px] h-[35px]'>KL</AvatarFallback>
+            </Avatar>
+            <Button variant='ghost' className='absolute right-3 top-0 sm:right-[20px] hover:bg-transparent'>
+              <GiHamburgerMenu size={20} className='text-primary' />
             </Button>
           </motion.div>
         </SheetTrigger>

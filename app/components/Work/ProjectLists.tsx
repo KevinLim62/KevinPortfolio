@@ -121,12 +121,6 @@ const ProjectLists = () => {
     <>
       {windowWidth >= 1024 ? (
         <>
-          <div className='absolute z-10 inset-x-0 inset-y-[45%] lg:hidden'>
-            <div className='flex w-full justify-between'>
-              <IoIosArrowBack size={30} onClick={handleBackward} className='text-foreground hover:text-foreground/70 hover:scale-150 transition-all duration-75' />
-              <IoIosArrowForward size={30} onClick={handleForward} className='text-foreground hover:text-foreground/70 hover:scale-150 transition-all duration-75' />
-            </div>
-          </div>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -159,7 +153,7 @@ const ProjectLists = () => {
       ) : (
         <>
           <h1 className='text-center text-white text-2xl 2xl:text-4xl font-bold'>My Work</h1>
-          <Carousel className='w-[290px] sm:w-[500]'>
+          <Carousel className='w-[290px] sm:w-[500px]'>
             <CarouselContent className=''>
               {listItems.map((el, index) => (
                 <CarouselItem key={index} className=''>

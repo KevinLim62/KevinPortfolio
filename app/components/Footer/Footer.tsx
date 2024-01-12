@@ -47,14 +47,14 @@ const Footer = () => {
 
   return (
     <motion.div
-      className='absolute bottom-0 flex justify-center w-full h-[15vh] lg:h-[13vh] 2xl:h-[20vh] mt-[50px] md:mb-[100px] lg:mb-0 lg:mt-0 border-t-2 border-foreground'
+      className='md:absolute bottom-0 flex justify-center w-full h-[20vh] sm:h-[15vh] lg:h-[13vh] 2xl:h-[20vh] mb-5 md:mb-10 lg:mb-0 border-t-2 border-foreground'
       ref={ref}
       variants={variants}
       initial={false}
       animate={isInView ? 'animate' : 'initial'}
       transition={{ delay: 0.5, duration: 1, ease: [0.65, 0, 0.35, 1] }}
     >
-      <div className='flex flex-col lg:flex-row w-full gap-5 lg:gap-0 items-center justify-center lg:justify-between lg:mx-5'>
+      <div className='flex flex-col lg:flex-row w-full gap-5 lg:gap-0 items-center justify-center mt-5 md:mt-0 lg:justify-between lg:mx-5'>
         <div className='text-sm lg:text-base text-center lg:text-left'>
           <div>Designed & Built by</div>
           <div>@ Kevin Lim Cher Yiong 2023</div>

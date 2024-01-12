@@ -17,7 +17,7 @@ export default function Page() {
       <SmoothWrapper>
         <main className='w-full h-screen bg-background'>
           {loadingDone ? (
-            <div className='section-container'>
+            <div className='flex flex-col section-container gap-[10px] lg:gap-0'>
               <Navbar />
               <Hero />
               <About />

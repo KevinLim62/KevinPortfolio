@@ -24,7 +24,7 @@ const Intro = () => {
   };
 
   return (
-    <motion.div className='mx-auto md:w-[60%] lg:w-[450px] 2xl:w-[550px]' ref={ref} variants={variants} initial={false} animate={isInView ? 'animate' : 'initial'} transition={{ duration: 1, ease: [0.6, 0.01, 0.05, 0.95] }}>
+    <motion.div className='mx-auto w-[300px] md:w-[60%] lg:w-[450px] 2xl:w-[550px]' ref={ref} variants={variants} initial={false} animate={isInView ? 'animate' : 'initial'} transition={{ duration: 1, ease: [0.6, 0.01, 0.05, 0.95] }}>
       <Card className=''>
         <CardHeader className='pb-0'>
           <CardTitle className='flex flex-col'>
