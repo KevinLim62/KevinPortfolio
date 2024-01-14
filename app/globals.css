@@ -67,6 +67,6 @@
 
 @layer utilities {
   .section-container {
-    @apply mx-[35px] sm:mx-[100px] md:mx-[60px] lg:mx-[40px] 2xl:mx-[160px];
+    @apply mx-[35px] sm:mx-[100px] md:mx-[60px] lg:mx-[40px] 2xl:mx-[100px];
   }
 }

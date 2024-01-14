@@ -125,11 +125,11 @@ const ProjectLists = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.5, duration: 1, ease: [0.6, 0.01, 0.05, 0.95] }}
-            className='absolute inset-x-0 text-center top-[150px] md:top-[100px] lg:top-[40px] 2xl:top-[100px] text-button text-2xl 2xl:text-4xl font-bold'
+            className='text-center text-white text-2xl 2xl:text-4xl font-bold'
           >
             My Work
           </motion.h1>
-          <motion.div ref={ref} variants={variants} initial='hidden' animate={isInView ? 'visible' : 'hidden'} className='mt-[50px] grid grid-cols-3 grid-rows-6 lg:w-[830px] lg:h-[480px] 2xl:w-[1120px] 2xl:h-[650px] lg:gap-[20px]'>
+          <motion.div ref={ref} variants={variants} initial='hidden' animate={isInView ? 'visible' : 'hidden'} className='mt-5 grid grid-cols-3 grid-rows-6 lg:w-[830px] lg:h-[480px] 2xl:w-[1120px] 2xl:h-[650px] lg:gap-[20px]'>
             {listItems.map((el, index) => (
               <motion.div variants={children} key={el.id} className={`flex w-full h-full py-1 ${el.layout} transition-transform duration-200 -translate-x-[${carouselState * 100}%]`}>
                 <Card className='flex flex-col justify-end w-[360px] cursor-pointer group drop-shadow-lg' onClick={() => handleDialog(el.id)}>

@@ -33,7 +33,7 @@ const FloatingNavbar = () => {
   return (
     <AnimatePresence>
       {menuSection !== 1 && (
-        <motion.nav className='hidden lg:block z-10 fixed right-[78px] 2xl:right-[200px] lg:bottom-[30%] 2xl:bottom-[40%]' variants={variants} initial='initial' animate='animate' exit='exit' transition={{ delay: 1, duration: 1, ease: [0.6, 0.01, 0.05, 0.95] }}>
+        <motion.nav className='hidden lg:block z-10 fixed right-[78px] 2xl:right-[120px] lg:bottom-[30%] 2xl:bottom-[40%]' variants={variants} initial='initial' animate='animate' exit='exit' transition={{ delay: 1, duration: 1, ease: [0.6, 0.01, 0.05, 0.95] }}>
           <NavigationMenu>
             <div className='flex flex-col justify-center items-center gap-3'>
               {menuItem.map((el) => (
