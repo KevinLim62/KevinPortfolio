@@ -102,7 +102,7 @@ const TechStacks = () => {
 
   return (
     <motion.div
-      className='grid grid-cols-4 grid-rows-3 w-[300px] md:w-[400px] md:h-[400px] lg:w-[450px] lg:h-[450px] border-[1px] border-primary relative'
+      className='grid grid-cols-4 grid-rows-3 w-[300px] md:w-[350px] md:h-[350px] lg:w-[400px] lg:h-[400px] 2xl:w-[450px] 2xl:h-[450px] border-[1px] border-primary relative'
       ref={ref}
       variants={variants}
       initial={false}

@@ -72,7 +72,7 @@ const ContactForm = () => {
     <div className='flex w-full h-full 2xl:h-[80vh] items-center justify-center lg:pb-[7%] 2xl:pb-[10%]'>
       <Form {...form}>
         <motion.form onSubmit={form.handleSubmit(onSubmit)} ref={ref} className='space-y-8' variants={variants} initial={false} animate={isInView ? 'animate' : 'initial'} transition={{ duration: 1.5, ease: [0.65, 0, 0.35, 1] }}>
-          <h1 className='text-md lg:text-xl 2xl:text-3xl font-bold text-center md:mb-[50px] text-button'>Contact me</h1>
+          <h1 className='text-2xl 2xl:text-4xl font-bold text-center md:mb-[50px] text-button'>Contact me</h1>
           {/* <h3 className='text-xl font-semibold leading-none tracking-tight mt-5'>Send me a message!</h3> */}
           <div className='flex flex-col md:flex-row gap-[30px] justify-between'>
             <FormField

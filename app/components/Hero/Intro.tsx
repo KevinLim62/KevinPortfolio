@@ -28,7 +28,7 @@ const Intro = () => {
       <Card className=''>
         <CardHeader className='pb-0'>
           <CardTitle className='flex flex-col'>
-            <AnimatedText className='w-[250px] 2xl:w-[300px] text-xl lg:text-2xl 2xl:text-4xl font-bold' title='Hello, my name is Kevin Lim' />
+            <AnimatedText className='mt-auto w-[250px] 2xl:w-[300px] text-xl lg:text-2xl 2xl:text-4xl font-bold' title='Hello, my name is Kevin Lim' />
             <Typewriter className='w-full text-xl lg:text-2xl 2xl:text-4xl font-bold' title='I am a Fullstack Developer' />
           </CardTitle>
         </CardHeader>
