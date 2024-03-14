@@ -3,7 +3,7 @@ import { Space_Grotesk } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from './components/Theme-provider';
 import MobileNav from './components/Navigation/MobileNav';
-import FloatingNavbar from './components/Navigation/FloatingNavbar';
+import { Toaster } from '@/components/ui/toaster';
 
 const space = Space_Grotesk({ subsets: ['latin'] });
 
@@ -18,7 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={space.className}>
         <ThemeProvider attribute='class' defaultTheme='dark' enableSystem disableTransitionOnChange>
           <MobileNav />
-          <FloatingNavbar />
+          <Toaster />
           {children}
         </ThemeProvider>
       </body>

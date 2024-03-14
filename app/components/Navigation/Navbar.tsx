@@ -3,8 +3,9 @@
 import { NavigationMenu, NavigationMenuContent, NavigationMenuIndicator, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, NavigationMenuViewport, navigationMenuTriggerStyle } from '@/components/ui/navigation-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import ThemeToggle from '../ThemeToggle';
-import { motion } from 'framer-motion';
+import { useAnimate, motion } from 'framer-motion';
 import { useMenuStore } from '@/lib/store/menuStore';
+import { useToast } from '@/components/ui/use-toast';
 
 export const menuItem = [
   {
@@ -40,39 +41,64 @@ const variants = {
   },
 };
 
+const wrapperVariants = {
+  initial: {
+    clipPath: 'polygon(0 0, 0 0, 0 100%, 0% 100%)',
+    transition: { duration: 0.4 },
+  },
+  animate: {
+    clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
+    transition: { duration: 0.4, staggerChildren: 0.1 },
+  },
+  exit: {
+    clipPath: 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)',
+    transition: { duration: 0.4 },
+  },
+};
+
 const Navbar = () => {
-  const { setMenuSection, setScrollPosition } = useMenuStore();
-  const handleMenuNavigate = (id: number) => {
-    const windowHeight = typeof window !== 'undefined' && window.innerHeight;
-    if (windowHeight) {
-      setMenuSection(id);
-      setScrollPosition((id - 1) * windowHeight);
-    }
+  const [scope, animate] = useAnimate();
+
+  const handleMenuNavigate = (title: string) => {
+    const section = document.getElementById(title);
+    section && section.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <>
-      <motion.nav variants={variants} initial='initial' animate='animate' transition={{ duration: 1, ease: [0.6, 0.01, 0.05, 0.95] }}>
-        <NavigationMenu className='lg:absolute h-[10vh] pt-5 hidden lg:block'>
-          <NavigationMenuList>
-            <Avatar className='mr-5'>
-              <AvatarImage src='/' />
-              <AvatarFallback className='bg-primary text-foreground text-lg font-bold'>KL</AvatarFallback>
-            </Avatar>
+    <motion.nav
+      variants={variants}
+      initial='initial'
+      animate='animate'
+      transition={{ duration: 1, ease: [0.6, 0.01, 0.05, 0.95] }}
+      className='hidden lg:block z-50 lg:fixed lg:right-10 lg:top-2 2xl:top-10 2xl:right-14'
+      onHoverStart={() => {
+        animate(scope.current, wrapperVariants.animate);
+      }}
+      onHoverEnd={() => animate(scope.current, wrapperVariants.exit)}
+    >
+      <NavigationMenu className='z-50'>
+        <NavigationMenuList>
+          <motion.div ref={scope} className='flex origin-right' style={{ clipPath: 'polygon(0 0, 0 0, 0 100%, 0% 100%)' }}>
             {menuItem.map((el) => (
               <NavigationMenuItem key={el.id} className='cursor-pointer'>
-                <NavigationMenuLink onClick={() => handleMenuNavigate(el.id)} className={navigationMenuTriggerStyle()}>
+                <NavigationMenuLink onClick={() => handleMenuNavigate(el.title.toLowerCase())} className={navigationMenuTriggerStyle()}>
                   {el.title}
                 </NavigationMenuLink>
               </NavigationMenuItem>
             ))}
-          </NavigationMenuList>
-        </NavigationMenu>
-      </motion.nav>
-      {/* <motion.div className='absolute hidden lg:block right-[20px] lg:right-[40px] 2xl:right-[160px] top-5' variants={variants} initial='initial' animate='animate' transition={{ duration: 1, ease: [0.6, 0.01, 0.05, 0.95] }}>
-        <ThemeToggle />
-      </motion.div> */}
-    </>
+          </motion.div>
+          <motion.div className='flex px-4 py-1 rounded-full bg-primary cursor-pointer' whileHover={{ scale: 0.95 }}>
+            <Avatar className=''>
+              <AvatarImage src='/' />
+              <AvatarFallback className='bg-transparent text-foreground text-lg font-bold'>KL</AvatarFallback>
+            </Avatar>
+            <div className=''>
+              <ThemeToggle />
+            </div>
+          </motion.div>
+        </NavigationMenuList>
+      </NavigationMenu>
+    </motion.nav>
   );
 };
 

@@ -1,6 +1,5 @@
 'use client';
 
-import MouseScroll from '@/components/ui/Animation/MouseScroll';
 import Intro from './Intro';
 import ProfilePic from './ProfilePic';
 
@@ -13,9 +12,6 @@ const Hero = () => {
         </div>
         <div className='w-full md:w-[60%] lg:w-[40%]'>
           <ProfilePic />
-        </div>
-        <div className='absolute right-[10px] bottom-[8px] hidden lg:block'>
-          <MouseScroll />
         </div>
       </div>
     </section>

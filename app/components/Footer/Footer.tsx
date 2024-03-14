@@ -31,11 +31,9 @@ const socialMediaList = [
 const variants = {
   initial: {
     opacity: 0,
-    y: 50,
   },
   animate: {
     opacity: 1,
-    y: 0,
   },
 };
 
@@ -47,7 +45,7 @@ const Footer = () => {
 
   return (
     <motion.div
-      className='md:absolute bottom-0 flex justify-center w-full h-[20vh] sm:h-[15vh] lg:h-[13vh] 2xl:h-[20vh] mb-5 md:mb-10 lg:mb-0 border-t-2 border-foreground'
+      className='md:absolute bottom-0 flex justify-center w-full h-[20vh] sm:h-[15vh] lg:h-[13vh] 2xl:h-[10vh] mb-5 md:mb-10 lg:mb-0 border-t-2 border-foreground'
       ref={ref}
       variants={variants}
       initial={false}
@@ -63,7 +61,7 @@ const Footer = () => {
           {socialMediaList.map((el, index) => (
             <div key={el.id} className='cursor-pointer'>
               <Button variant='ghost' className='px-2 hover:bg-transparent'>
-                <el.icon className='text-secondary hover:text-foreground hover:scale-110' size={35}></el.icon>
+                <el.icon className='text-foreground hover:scale-110' size={35}></el.icon>
               </Button>
             </div>
           ))}

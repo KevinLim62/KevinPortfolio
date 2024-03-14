@@ -31,13 +31,15 @@ const MobileNav = () => {
     <>
       <Sheet>
         <SheetTrigger asChild>
-          <motion.div className='z-20 fixed top-0 w-screen h-[5vh] bg-secondary lg:hidden' variants={variants} initial='initial' animate='animate' transition={{ delay: 4, duration: 1, ease: [0.6, 0.01, 0.05, 0.95] }}>
-            <Avatar className='absolute left-3 top-[2px] sm:left-[20px] '>
-              <AvatarFallback className='bg-primary text-foreground text-md font-bold w-[35px] h-[35px]'>KL</AvatarFallback>
-            </Avatar>
-            <Button variant='ghost' className='absolute right-3 top-0 sm:right-[20px] hover:bg-transparent'>
-              <GiHamburgerMenu size={20} className='text-primary' />
-            </Button>
+          <motion.div className='z-20 fixed top-0 w-screen h-[7vh] lg:hidden backdrop-blur-sm bg-primary/10 border-foreground/20 border-b-[1px]' variants={variants} initial='initial' animate='animate' transition={{ delay: 4, duration: 1, ease: [0.6, 0.01, 0.05, 0.95] }}>
+            <div className='mx-2 h-full flex flex-row justify-between items-center'>
+              <Avatar className='flex items-center justify-center'>
+                <AvatarFallback className='bg-primary text-foreground text-md font-bold w-[35px] h-[35px]'>KL</AvatarFallback>
+              </Avatar>
+              <Button variant='ghost' className='hover:bg-transparent'>
+                <GiHamburgerMenu size={20} className='text-foreground' />
+              </Button>
+            </div>
           </motion.div>
         </SheetTrigger>
         <SheetContent>
@@ -55,12 +57,11 @@ const MobileNav = () => {
               </div>
             ))}
           </div>
+          <motion.div className='w-fit mx-auto rounded-full bg-primary cursor-pointer mt-10' whileHover={{ scale: 0.95 }}>
+            <ThemeToggle />
+          </motion.div>
         </SheetContent>
       </Sheet>
-
-      {/* <motion.div className='z-10 fixed right-[20px] top-5 lg:hidden' variants={variants} initial='initial' animate='animate' transition={{ duration: 1, ease: [0.6, 0.01, 0.05, 0.95] }}>
-        <ThemeToggle />
-      </motion.div> */}
     </>
   );
 };

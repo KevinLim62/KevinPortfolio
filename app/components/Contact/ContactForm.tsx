@@ -4,12 +4,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { IoMdSend } from 'react-icons/io';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
+import { useToast } from '@/components/ui/use-toast';
 
 const inquiryFormSchema = z.object({
   name: z
@@ -38,6 +39,7 @@ const inquiryFormSchema = z.object({
 });
 
 const ContactForm = () => {
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof inquiryFormSchema>>({
     resolver: zodResolver(inquiryFormSchema),
     defaultValues: {
@@ -48,8 +50,10 @@ const ContactForm = () => {
   });
 
   function onSubmit(values: z.infer<typeof inquiryFormSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+    toast({
+      title: `Email successfully sent to ${values.email}`,
+      description: `${new Date()}`,
+    });
     console.log(values);
   }
 
@@ -73,7 +77,6 @@ const ContactForm = () => {
       <Form {...form}>
         <motion.form onSubmit={form.handleSubmit(onSubmit)} ref={ref} className='space-y-8' variants={variants} initial={false} animate={isInView ? 'animate' : 'initial'} transition={{ duration: 1.5, ease: [0.65, 0, 0.35, 1] }}>
           <h1 className='text-2xl 2xl:text-4xl font-bold text-center md:mb-[50px] text-button'>Contact me</h1>
-          {/* <h3 className='text-xl font-semibold leading-none tracking-tight mt-5'>Send me a message!</h3> */}
           <div className='flex flex-col md:flex-row gap-[30px] justify-between'>
             <FormField
               control={form.control}
@@ -118,10 +121,10 @@ const ContactForm = () => {
             )}
           />
           <div className='flex lg:mx-auto w-[150px] relative group z-10'>
-            <Button className='flex lg:mx-auto bg-secondary text-background border-primary hover:bg-background hover:text-foreground hover:border-foreground w-[150px] h-[50px] rounded-lg gap-1 group text-xs lg:text-sm 2xl:text-base font-bold' variant='outline' type='submit'>
+            <Button className='flex lg:mx-auto bg-foreground text-background border-primary hover:bg-background hover:text-foreground hover:border-foreground w-[150px] h-[50px] rounded-lg gap-1 group text-xs lg:text-sm 2xl:text-base font-bold' variant='outline' type='submit'>
               SEND
               <IoMdSend size={20} className='transition-transform duration-200 group-hover:translate-x-4' />
-              <div className='hidden z-[-10] lg:block absolute left-0 top-0 transition-transform delay-150 duration-200 group-hover:translate-x-[10px] group-hover:translate-y-[10px] w-[150px] h-[50px] rounded-xl border-2 border-primary bg-secondary'></div>
+              <div className='hidden z-[-10] lg:block absolute left-0 top-0 transition-transform delay-150 duration-200 group-hover:translate-x-[10px] group-hover:translate-y-[10px] w-[150px] h-[50px] rounded-xl border-2 border-primary bg-primary'></div>
             </Button>
           </div>
         </motion.form>
