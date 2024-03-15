@@ -4,7 +4,7 @@ import Intro from './Intro';
 import ProfilePic from './ProfilePic';
 import { Suspense } from 'react';
 import React from 'react';
-const BackgroundSphere = React.lazy(() => import('@/components/ui/Animation/BackgroundSphere'));
+// const BackgroundSphere = React.lazy(() => import('@/components/ui/Animation/BackgroundSphere'));
 
 const Hero = () => {
   return (
@@ -16,9 +16,9 @@ const Hero = () => {
         <div className='w-full md:w-[60%] lg:w-[40%] z-10'>
           <ProfilePic />
         </div>
-        <Suspense fallback={null}>
+        {/* <Suspense fallback={null}>
           <BackgroundSphere />
-        </Suspense>
+        </Suspense> */}
       </div>
     </section>
   );
