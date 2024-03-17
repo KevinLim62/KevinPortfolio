@@ -8,6 +8,7 @@ import Navbar from './components/Navigation/Navbar';
 import Work from './components/Work/Work';
 import PreLoading from '@/components/ui/Animation/PreLoading';
 import { TracingBeam } from '@/components/ui/Animation/TracingBeam';
+import Chatbox from './components/Chatbox/Chatbox';
 
 export default function Page() {
   const [loadingDone, setLoadingDone] = useState(false);
@@ -17,6 +18,7 @@ export default function Page() {
       {loadingDone ? (
         <React.Fragment>
           <Navbar />
+          <Chatbox />
           <TracingBeam>
             <Hero />
             <About />

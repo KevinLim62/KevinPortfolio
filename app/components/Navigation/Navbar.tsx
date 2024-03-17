@@ -78,7 +78,7 @@ const Navbar = () => {
     >
       <NavigationMenu className='z-50'>
         <NavigationMenuList>
-          <motion.div ref={scope} className='flex origin-right' style={{ clipPath: 'polygon(0 0, 0 0, 0 100%, 0% 100%)' }}>
+          <motion.div ref={scope} className='flex origin-right bg-primary' style={{ clipPath: 'polygon(0 0, 0 0, 0 100%, 0% 100%)' }}>
             {menuItem.map((el) => (
               <NavigationMenuItem key={el.id} className='cursor-pointer'>
                 <NavigationMenuLink onClick={() => handleMenuNavigate(el.title.toLowerCase())} className={navigationMenuTriggerStyle()}>

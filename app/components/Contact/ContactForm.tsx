@@ -11,15 +11,16 @@ import { IoMdSend } from 'react-icons/io';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { useToast } from '@/components/ui/use-toast';
+import { sendEmail } from '@/app/action/sendEmail';
 
-const inquiryFormSchema = z.object({
+export const inquiryFormSchema = z.object({
   name: z
     .string({
       required_error: 'Name must be provided.',
       invalid_type_error: 'Name must be a string.',
     })
-    .min(10, {
-      message: 'Message must not less than 10 characters.',
+    .min(5, {
+      message: 'Message must not less than 5 characters.',
     }),
   email: z
     .string({
@@ -30,12 +31,12 @@ const inquiryFormSchema = z.object({
     .string({
       required_error: 'Message must be provided.',
     })
-    .min(10, {
+    .min(5, {
       message: 'Message must not less than 10 characters.',
-    })
-    .max(30, {
-      message: 'Message must not be longer than 30 characters.',
     }),
+  // .max(30, {
+  //   message: 'Message must not be longer than 30 characters.',
+  // }),
 });
 
 const ContactForm = () => {
@@ -49,12 +50,15 @@ const ContactForm = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof inquiryFormSchema>) {
-    toast({
-      title: `Email successfully sent to ${values.email}`,
-      description: `${new Date()}`,
-    });
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof inquiryFormSchema>) {
+    const response = await sendEmail(values);
+
+    if (response) {
+      toast({
+        title: `Email successfully sent`,
+        description: `${new Date()}`,
+      });
+    }
   }
 
   const ref = useRef(null);
