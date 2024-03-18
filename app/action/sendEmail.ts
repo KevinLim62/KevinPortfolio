@@ -8,7 +8,7 @@ import React from 'react';
 
 export const sendEmail = async (values: z.infer<typeof inquiryFormSchema>) => {
   const { data, error } = await resend.emails.send({
-    from: `Contact Form <${values.email}>`,
+    from: `Contact Form <onboarding@resend.dev>`,
     to: 'cheryiong62@gmail.com',
     subject: 'Message from Contact Form',
     reply_to: values.email as string,

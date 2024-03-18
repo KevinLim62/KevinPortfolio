@@ -9,6 +9,7 @@ import { menuItem } from './Navbar';
 import ThemeToggle from '../ThemeToggle';
 import { motion } from 'framer-motion';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import Chatbox from '../Chatbox/Chatbox';
 
 const variants = {
   initial: {
@@ -46,9 +47,9 @@ const MobileNav = () => {
           <SheetHeader className='mb-5'>
             <SheetTitle className='text-center'>Menu</SheetTitle>
           </SheetHeader>
-          <div className='flex flex-col w-full justify-center space-y-5'>
+          <div className='flex flex-col w-full h-full justify-between p-10'>
             {menuItem.map((el) => (
-              <div key={el.id} className='mx-auto items-center cursor-pointer'>
+              <div key={el.id} className='mx-auto items-center cursor-pointer py-2'>
                 <SheetClose asChild>
                   <Label htmlFor='name' onClick={() => handleNavigate(el.title.toLowerCase())} className={navigationMenuTriggerStyle()}>
                     {el.title}
@@ -56,10 +57,11 @@ const MobileNav = () => {
                 </SheetClose>
               </div>
             ))}
+            <motion.div className='flex flex-row items-center justify-center w-fit mx-auto rounded-full bg-primary cursor-pointer mt-auto space-x-5 p-3' whileHover={{ scale: 0.95 }}>
+              <ThemeToggle />
+              <Chatbox animationDelay={0} className='static' />
+            </motion.div>
           </div>
-          <motion.div className='w-fit mx-auto rounded-full bg-primary cursor-pointer mt-10' whileHover={{ scale: 0.95 }}>
-            <ThemeToggle />
-          </motion.div>
         </SheetContent>
       </Sheet>
     </>

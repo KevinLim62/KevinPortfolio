@@ -2,6 +2,7 @@
 
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { cn } from '@/lib/utils';
 import { useChat } from 'ai/react';
 import { motion } from 'framer-motion';
 import { useEffect, useRef } from 'react';
@@ -18,7 +19,12 @@ const variants = {
   },
 };
 
-const Chatbox = () => {
+type ChatboxProps = {
+  className?: string;
+  animationDelay?: number;
+};
+
+const Chatbox: React.FC<ChatboxProps> = ({ className, animationDelay = 5 }) => {
   const { messages, input, handleInputChange, handleSubmit, data } = useChat();
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
@@ -30,8 +36,8 @@ const Chatbox = () => {
 
   return (
     <Popover>
-      <PopoverTrigger className='fixed bottom-[120px] right-[30px] z-50'>
-        <motion.div variants={variants} initial='initial' animate='animate' transition={{ delay: 5, duration: 1, ease: [0.6, 0.01, 0.05, 0.95] }}>
+      <PopoverTrigger className={cn('fixed bottom-[120px] right-[30px] z-50', className)}>
+        <motion.div variants={variants} initial='initial' animate='animate' transition={{ delay: animationDelay, duration: 1, ease: [0.6, 0.01, 0.05, 0.95] }}>
           <PiChatsCircleFill size={30} className='transition-all hover:scale-110 hover:opacity-70' />
         </motion.div>
       </PopoverTrigger>
@@ -44,7 +50,7 @@ const Chatbox = () => {
             <div className='flex flex-col justify-between w-full max-w-md mx-auto relative'>
               <div ref={chatContainerRef} className='flex-grow h-[270px] overflow-y-auto space-y-2 mb-5'>
                 {messages.map((m) => (
-                  <div key={m.id} className={`whitespace-pre-wrap text-justify ${m.role === 'user' ? 'text-foreground' : 'text-sky-500/50'}`}>
+                  <div key={m.id} className={`whitespace-pre-wrap text-justify ${m.role === 'user' ? 'text-foreground' : 'text-sky-500/70'}`}>
                     {m.role === 'user' ? 'Question: ' : 'Answer: '}
                     {m.content}
                   </div>

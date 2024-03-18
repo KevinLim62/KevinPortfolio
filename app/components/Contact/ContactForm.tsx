@@ -89,7 +89,7 @@ const ContactForm = () => {
                 <FormItem className='mx-auto w-[250px] md:w-full 2xl:w-[250px]'>
                   <FormLabel className='text-button text-sm lg:text-md 2xl:text-lg font-bold'>Name</FormLabel>
                   <FormControl>
-                    <Input placeholder='Enter Your Name' className='border-b-2 border-foreground' {...field} />
+                    <Input type='text' placeholder='Enter Your Name' className='border-b-2 border-foreground' {...field} />
                   </FormControl>
                   <FormMessage className='absolute text-xs text-[#E2C275] whitespace-nowrap' />
                 </FormItem>
@@ -103,7 +103,7 @@ const ContactForm = () => {
                   <FormItem className='mx-auto w-[250px] md:w-full 2xl:w-[250px]'>
                     <FormLabel className='text-button text-sm lg:text-md 2xl:text-lg font-bold'>Email</FormLabel>
                     <FormControl>
-                      <Input placeholder='Enter Your Email' className='border-b-2 border-foreground' {...field} />
+                      <Input type='email' placeholder='Enter Your Email' className='border-b-2 border-foreground' {...field} />
                     </FormControl>
                     <FormMessage className='absolute text-xs text-[#E2C275] whitespace-nowrap' />
                   </FormItem>
@@ -118,7 +118,7 @@ const ContactForm = () => {
               <FormItem className='mx-auto w-[250px] md:w-[550px] pt-[15px] lg:pt-[30px]'>
                 <FormLabel className='text-button text-sm lg:text-md 2xl:text-lg font-bold'>Message</FormLabel>
                 <FormControl>
-                  <Textarea placeholder='Enter Your Inquiry Message' className='border-b-2 border-foreground resize-none' {...field} />
+                  <Textarea typeof='text' placeholder='Enter Your Inquiry Message' className='border-b-2 border-foreground resize-none' {...field} />
                 </FormControl>
                 <FormMessage className='absolute text-xs text-[#E2C275] whitespace-nowrap' />
               </FormItem>

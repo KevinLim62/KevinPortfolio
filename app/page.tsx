@@ -18,7 +18,7 @@ export default function Page() {
       {loadingDone ? (
         <React.Fragment>
           <Navbar />
-          <Chatbox />
+          <Chatbox className='hidden lg:block' />
           <TracingBeam>
             <Hero />
             <About />

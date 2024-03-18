@@ -1,5 +1,3 @@
-'use client';
-
 import { Body, Container, Head, Heading, Hr, Html, Preview, Section, Text } from '@react-email/components';
 import { Tailwind } from '@react-email/tailwind';
 
@@ -17,7 +15,7 @@ export default function EnquiryEmail({ name, message }: EnquiryEmailProps) {
         <Body className='bg-white my-auto mx-auto font-sans px-2'>
           <Container className='border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px] max-w-[465px]'>
             <Section className='mt-[32px]'>
-              <Text className='flex h-full w-full items-center justify-center bg-transparent text-foreground text-lg font-bold'>KL</Text>
+              <Text className='flex h-full mx-auto items-center justify-center bg-transparent text-foreground text-lg font-bold'>KL</Text>
             </Section>
             <Heading className='text-black text-[24px] font-normal text-center p-0 my-[30px] mx-0'>
               <strong>Contact Form Enquiry</strong>

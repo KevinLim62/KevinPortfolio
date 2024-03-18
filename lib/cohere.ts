@@ -4,15 +4,11 @@ export const cohere = new CohereClient({
   token: process.env.NEXT_COHERE_API_KEY,
 });
 
-export const knownPrompt = [
-  {
-    text: 'You are an intelligent chatbox for answering the user questions, your responses must be from the list of relevant documents as stated',
-  },
-];
+export const preamble_override = 'You are an intelligent chatbox agent which assist portfolio website owner : Kevin Lim to answer questions about the owner. Your responses must be from the list of relevant documents as stated.';
 
-export const unknownPrompt = [
+export const documentsNotAvailablePrompt = [
   {
-    text: 'You do have the information to answer this question, just reply with - I am sorry, I do not know this',
+    text: 'There is no relevent documents provided, just reply with I am sorry, I do not know this as website owner did not discloure it to me.',
   },
 ];
 

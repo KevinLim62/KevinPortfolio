@@ -26,7 +26,7 @@ const Intro = () => {
 
   return (
     <motion.div className='mx-auto w-[300px] md:w-[60%] lg:w-[450px] 2xl:w-[550px]' ref={ref} variants={variants} initial={false} animate={isInView ? 'animate' : 'initial'} transition={{ duration: 1, ease: [0.6, 0.01, 0.05, 0.95] }}>
-      <Card className='bg-transparent rounded-xl'>
+      <Card className='backdrop-blur-sm bg-primary opacity-90 rounded-xl'>
         <CardHeader className='pb-0'>
           <CardTitle className='flex flex-col'>
             <AnimatedText className='w-[250px] 2xl:w-[300px] text-xl lg:text-2xl 2xl:text-4xl font-bold' title='Hello, my name is Kevin Lim' />
@@ -36,7 +36,7 @@ const Intro = () => {
         </CardHeader>
         <CardContent className='mt-5'>
           <div className='flex w-[150px] relative group z-10'>
-            <Button borderRadius='2.5rem' containerClassName='bg-primary text-foreground border-slate-800 group' borderClassName='group-hover:bg-[radial-gradient(var(--sky-500)_40%,transparent_60%)]'>
+            <Button borderRadius='2.5rem' containerClassName='bg-transparent text-foreground border-slate-800 border-2 group' borderClassName='group-hover:bg-[radial-gradient(var(--sky-500)_40%,transparent_60%)]'>
               <h1 className='group-hover:scale-[1.2] transition-transform'>Resume</h1>
             </Button>
           </div>

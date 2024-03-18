@@ -1,5 +1,5 @@
 import { retrieveDocumentsBySimilarity } from '@/lib/astraDB';
-import { cohere, createEmbedding, knownPrompt, unknownPrompt } from '@/lib/cohere';
+import { cohere, createEmbedding, documentsNotAvailablePrompt, preamble_override } from '@/lib/cohere';
 import { FindOptions } from '@datastax/astra-db-ts/dist/collections';
 import { Cohere } from 'cohere-ai';
 import { CohereStream, StreamingTextResponse } from 'ai';
@@ -49,12 +49,14 @@ export async function POST(req: Request) {
       }
     });
     const chatStreamDocuments: any[] = documents.filter((doc) => doc !== undefined);
-    console.log(chatStreamDocuments);
+    console.log('relevant documents: ', chatStreamDocuments);
 
     const response = await cohere.chatStream({
       message: lastMessage.message,
       chatHistory: chatHistory.slice(-5),
-      documents: chatStreamDocuments.length >= 1 ? chatStreamDocuments : unknownPrompt,
+      documents: chatStreamDocuments.length > 0 ? chatStreamDocuments : documentsNotAvailablePrompt,
+      temperature: 0.2,
+      preamble: preamble_override,
     });
 
     const stream = new ReadableStream({
