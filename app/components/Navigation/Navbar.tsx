@@ -42,17 +42,11 @@ const variants = {
 };
 
 const wrapperVariants = {
-  initial: {
-    clipPath: 'polygon(0 0, 0 0, 0 100%, 0% 100%)',
-    transition: { duration: 0.4 },
-  },
   animate: {
     clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
-    transition: { duration: 0.4, staggerChildren: 0.1 },
   },
   exit: {
     clipPath: 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)',
-    transition: { duration: 0.4 },
   },
 };
 
@@ -72,13 +66,13 @@ const Navbar = () => {
       transition={{ duration: 1, ease: [0.6, 0.01, 0.05, 0.95] }}
       className='hidden lg:block z-50 lg:fixed lg:right-10 lg:top-2 2xl:top-10 2xl:right-14'
       onHoverStart={() => {
-        animate(scope.current, wrapperVariants.animate);
+        animate(scope.current, wrapperVariants.animate, { duration: 0.4 });
       }}
-      onHoverEnd={() => animate(scope.current, wrapperVariants.exit)}
+      onHoverEnd={() => animate(scope.current, wrapperVariants.exit, { duration: 0.4 })}
     >
       <NavigationMenu className='z-50'>
         <NavigationMenuList>
-          <motion.div ref={scope} className='flex origin-right bg-primary' style={{ clipPath: 'polygon(0 0, 0 0, 0 100%, 0% 100%)' }}>
+          <motion.div ref={scope} className='flex bg-primary' style={{ clipPath: 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)' }}>
             {menuItem.map((el) => (
               <NavigationMenuItem key={el.id} className='cursor-pointer'>
                 <NavigationMenuLink onClick={() => handleMenuNavigate(el.title.toLowerCase())} className={navigationMenuTriggerStyle()}>
