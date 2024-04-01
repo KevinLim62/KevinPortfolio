@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/Animation/MovingBorder';
 import Typewriter from '@/components/ui/Animation/Typewriter';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { motion, useInView } from 'framer-motion';
+import Link from 'next/link';
 import { useRef } from 'react';
 
 const Intro = () => {
@@ -32,13 +33,17 @@ const Intro = () => {
             <AnimatedText className='w-[250px] 2xl:w-[300px] text-xl lg:text-2xl 2xl:text-4xl font-bold' title='Hello, my name is Kevin Lim' />
             <Typewriter className='w-full text-xl lg:text-2xl 2xl:text-4xl font-bold' title='I am a Fullstack Developer' />
           </CardTitle>
-          <div className='text-sm lg:text-md 2xl:text-lg font-light text-muted-foreground'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dolor magna eget est lorem ipsum dolor sit amet.</div>
+          <div className='text-sm lg:text-md 2xl:text-lg font-light text-muted-foreground text-justify'>
+            A very self-disciplined, result-oriented full stack developer with demonstrated experience in building CRM system, blockchain related authenticity verification system. I able to communicate effectively in English, Chinese and Malay in both spoken and written forms.
+          </div>
         </CardHeader>
         <CardContent className='mt-5'>
           <div className='flex w-[150px] relative group z-10'>
-            <Button borderRadius='2.5rem' containerClassName='bg-transparent text-foreground border-slate-800 border-2 group' borderClassName='group-hover:bg-[radial-gradient(var(--sky-500)_40%,transparent_60%)]'>
-              <h1 className='group-hover:scale-[1.2] transition-transform'>Resume</h1>
-            </Button>
+            <Link href='/resume/KevinLimCherYiong_Resume.pdf' target='_blank' rel='noopener noreferrer' download>
+              <Button borderRadius='2.5rem' containerClassName='bg-transparent text-foreground border-slate-800 border-2 group' borderClassName='group-hover:bg-[radial-gradient(var(--sky-500)_40%,transparent_60%)]'>
+                <h1 className='group-hover:scale-[1.2] transition-transform'>Resume</h1>
+              </Button>
+            </Link>
           </div>
         </CardContent>
       </Card>
