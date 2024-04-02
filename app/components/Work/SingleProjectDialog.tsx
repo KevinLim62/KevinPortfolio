@@ -31,7 +31,7 @@ const SingleProjectDialog: React.FC<SingleProjectDialogProps> = ({ id, title, de
             <div>{description}</div>
             <div className='grid grid-cols-5 gap-2'>
               {tags.map((tag, index) => (
-                <div key={index} className='p-1 rounded-full text-xs bg-slate-500 cursor-default'>
+                <div key={index} className='p-1 rounded-full text-xs text-center bg-slate-500 cursor-default'>
                   {tag}
                 </div>
               ))}

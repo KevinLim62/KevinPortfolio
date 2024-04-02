@@ -6,19 +6,20 @@ import { LuInstagram } from 'react-icons/lu';
 import { Button } from '@/components/ui/button';
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import Link from 'next/link';
 
 const socialMediaList = [
   {
     id: '1',
     name: 'Github',
     icon: VscGithub,
-    link: '/',
+    link: 'https://github.com/KevinLim62',
   },
   {
     id: '2',
     name: 'Linkedin',
     icon: FaLinkedin,
-    link: '/',
+    link: 'https://www.linkedin.com/in/kevinlim62',
   },
   {
     id: '3',
@@ -61,7 +62,9 @@ const Footer = () => {
           {socialMediaList.map((el, index) => (
             <div key={el.id} className='cursor-pointer'>
               <Button variant='ghost' className='px-2 hover:bg-transparent'>
-                <el.icon className='text-foreground hover:scale-110' size={35}></el.icon>
+                <Link href={el.link} target='_blank' rel='noopener noreferrer'>
+                  <el.icon className='text-foreground hover:scale-110' size={35}></el.icon>
+                </Link>
               </Button>
             </div>
           ))}
