@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { cn } from '@/lib/utils';
-import { motion, useInView, useScroll, useTransform } from 'framer-motion';
-import React, { useEffect, useRef, useState } from 'react';
-import { createNoise3D } from 'simplex-noise';
+import { cn } from "@/lib/utils";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
+import { createNoise3D } from "simplex-noise";
 
 export const WavyBackground = ({
   children,
@@ -13,7 +13,7 @@ export const WavyBackground = ({
   waveWidth,
   backgroundFill,
   blur = 10,
-  speed = 'fast',
+  speed = "fast",
   waveOpacity = 0.5,
   ...props
 }: {
@@ -24,18 +24,24 @@ export const WavyBackground = ({
   waveWidth?: number;
   backgroundFill?: string;
   blur?: number;
-  speed?: 'slow' | 'fast';
+  speed?: "slow" | "fast";
   waveOpacity?: number;
   [key: string]: any;
 }) => {
   const noise = createNoise3D();
-  let w: number, h: number, nt: number, i: number, x: number, ctx: any, canvas: any;
+  let w: number,
+    h: number,
+    nt: number,
+    i: number,
+    x: number,
+    ctx: any,
+    canvas: any;
   const pageRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: pageRef,
-    offset: ['start start', 'end start'],
+    offset: ["start start", "end start"],
   });
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const isInView = useInView(canvasRef, {
     once: true,
@@ -43,9 +49,9 @@ export const WavyBackground = ({
 
   const getSpeed = () => {
     switch (speed) {
-      case 'slow':
+      case "slow":
         return 0.001;
-      case 'fast':
+      case "fast":
         return 0.002;
       default:
         return 0.001;
@@ -54,7 +60,7 @@ export const WavyBackground = ({
 
   const init = () => {
     canvas = canvasRef.current;
-    ctx = canvas.getContext('2d');
+    ctx = canvas.getContext("2d");
     w = ctx.canvas.width = window.innerWidth;
     h = ctx.canvas.height = window.innerHeight;
     ctx.filter = `blur(${blur}px)`;
@@ -67,7 +73,7 @@ export const WavyBackground = ({
     render();
   };
 
-  const waveColors = colors ?? ['#A8D8EA', '#AA96DA', '#FCBAD3', '#FFFFD2'];
+  const waveColors = colors ?? ["#A8D8EA", "#AA96DA", "#FCBAD3", "#FFFFD2"];
   const drawWave = (n: number) => {
     nt += getSpeed();
     for (i = 0; i < n; i++) {
@@ -85,7 +91,7 @@ export const WavyBackground = ({
 
   let animationId: number;
   const render = () => {
-    ctx.fillStyle = backgroundFill || 'black';
+    ctx.fillStyle = backgroundFill || "black";
     ctx.globalAlpha = waveOpacity || 0.5;
     ctx.fillRect(0, 0, w, h);
     drawWave(5);
@@ -113,25 +119,35 @@ export const WavyBackground = ({
   const [isSafari, setIsSafari] = useState(false);
   useEffect(() => {
     // I'm sorry but i have got to support it on safari.
-    setIsSafari(typeof window !== 'undefined' && navigator.userAgent.includes('Safari') && !navigator.userAgent.includes('Chrome'));
+    setIsSafari(
+      typeof window !== "undefined" &&
+        navigator.userAgent.includes("Safari") &&
+        !navigator.userAgent.includes("Chrome")
+    );
   }, []);
 
   return (
-    <div ref={pageRef} className={cn('h-screen flex flex-col items-center justify-center', containerClassName)}>
+    <div
+      ref={pageRef}
+      className={cn(
+        "h-screen flex flex-col items-center justify-center",
+        containerClassName
+      )}
+    >
       <motion.canvas
-        className='absolute inset-0 z-0 origin-left'
+        className="absolute inset-0 z-0 origin-left"
         ref={canvasRef}
-        id='canvas'
+        id="canvas"
         variants={variants}
         initial={false}
-        animate={isInView ? 'animate' : 'initial'}
-        transition={{ delay: 1.5, duration: 1.5, ease: [0.6, 0.01, 0.05, 0.95] }}
+        animate={isInView ? "animate" : "initial"}
+        transition={{ delay: 3, duration: 1.5, ease: [0.6, 0.01, 0.05, 0.95] }}
         style={{
           ...(isSafari ? { filter: `blur(${blur}px)` } : {}),
           y: backgroundY,
         }}
       ></motion.canvas>
-      <div className={cn('relative z-10', className)} {...props}>
+      <div className={cn("relative z-10", className)} {...props}>
         {children}
       </div>
     </div>
